@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Sign Up Form</h1>
+    <form id="signupForm" onsubmit="validateForm(event)" class="needs-validation" novalidate>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" required>
+        <div class="invalid-feedback">Please enter your name.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" required>
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" required>
+        <div class="invalid-feedback">Password should be at least 6 characters long.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); // Prevent form submission for now
+
+      // Get form input values
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Validate name
+      if (name === "") {
+        showErrorMessage("name", "Please enter your name.");
+        return;
+      } else {
+        hideErrorMessage("name");
+      }
+
+      // Validate email
+      if (!validateEmail(email)) {
+        showErrorMessage("email", "Please enter a valid email address.");
+        return;
+      } else {
+        hideErrorMessage("email");
+      }
+
+      // Validate password
+      if (password.length < 6) {
+        showErrorMessage("password", "Password should be at least 6 characters long.");
+        return;
+      } else {
+        hideErrorMessage("password");
+      }
+
+      // If all validations pass, submit the form
+      alert("Form submitted successfully!");
+      document.getElementById("signupForm").submit();
+    }
+
+    // Email validation using regular expression
+    function validateEmail(email) {
+      const regex = /^\S+@\S+\.\S+$/;
+      return regex.test(email);
+    }
+
+    // Show error message and add invalid class
+    function showErrorMessage(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorFeedback = field.nextElementSibling;
+
+      field.classList.add("is-invalid");
+      errorFeedback.textContent = message;
+    }
+
+    // Hide error message and remove invalid class
+    function hideErrorMessage(fieldId) {
+      const field = document.getElementById(fieldId);
+      const errorFeedback = field.nextElementSibling;
+
+      field.classList.remove("is-invalid");
+      errorFeedback.textContent = "";
+    }
+  </script>
+</body>
+
+</html>
